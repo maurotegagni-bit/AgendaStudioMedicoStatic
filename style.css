@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f7fb;
+  color: #102a43;
+}
+
+.header {
+  background: linear-gradient(135deg, #4f8ddc, #3461a4);
+  color: #ffffff;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.header p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.panel {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  flex: 1 1 300px;
+  min-width: 280px;
+}
+
+.panel h2 {
+  margin-top: 0;
+  color: #244672;
+}
+
+.agenda-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.agenda-controls label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+input[type="date"],
+input[type="time"],
+input[type="text"],
+textarea {
+  margin-top: 0.25rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #cbd2e0;
+  font-size: 0.9rem;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  border: none;
+  background: #3461a4;
+  color: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #274a7c;
+}
+
+.appointments-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.appointment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.3rem;
+  border-radius: 6px;
+  background: #edf2fb;
+  font-size: 0.9rem;
+}
+
+.appointment-info {
+  max-width: 80%;
+}
+
+.appointment-actions button {
+  background: #c53a3a;
+}
+
+.appointment-actions button:hover {
+  background: #9c2f2f;
+}
+
+.ai-response {
+  margin-top: 0.8rem;
+  padding: 0.7rem;
+  border-radius: 6px;
+  background: #edf2fb;
+  min-height: 3rem;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+.footer {
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 0.8rem;
+  color: #6b7b93;
+}
+  
+@media (max-width: 768px) {
+  .main {
+    padding: 0.5rem;
+  }
+}
