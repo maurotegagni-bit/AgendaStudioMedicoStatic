@@ -12,80 +12,84 @@ body {
 .header {
   background: linear-gradient(135deg, #4f8ddc, #3461a4);
   color: #ffffff;
-  padding: 1.5rem;
-  text-align: center;
+  padding: 1rem 1.5rem;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 .header p {
-  margin: 0.5rem 0 0;
-  font-size: 0.95rem;
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
 }
 
-.main {
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 0.8rem;
+  padding: 0.8rem;
+}
+
+.sidebar,
+.main-panel {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .panel {
   background: #ffffff;
   border-radius: 10px;
-  padding: 1rem;
+  padding: 0.8rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  flex: 1 1 300px;
-  min-width: 280px;
 }
 
 .panel h2 {
   margin-top: 0;
+  font-size: 1rem;
   color: #244672;
 }
 
-.agenda-controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.agenda-controls label {
+.form {
   display: flex;
   flex-direction: column;
-  font-size: 0.9rem;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
 }
 
+label {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
 input[type="date"],
 input[type="time"],
-input[type="text"],
+select,
 textarea {
-  margin-top: 0.25rem;
-  padding: 0.4rem 0.6rem;
+  padding: 0.35rem 0.5rem;
   border-radius: 6px;
   border: 1px solid #cbd2e0;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 textarea {
-  width: 100%;
   resize: vertical;
 }
 
 button {
-  margin-top: 0.5rem;
-  padding: 0.5rem 0.9rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 6px;
   border: none;
   background: #3461a4;
   color: #ffffff;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
 }
 
@@ -93,54 +97,143 @@ button:hover {
   background: #274a7c;
 }
 
-.appointments-list {
+.list {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
 }
 
-.appointment-item {
+.list-item {
+  padding: 0.35rem 0.4rem;
+  border-radius: 6px;
+  margin-bottom: 0.25rem;
+  background: #edf2fb;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0.7rem;
-  margin-bottom: 0.3rem;
-  border-radius: 6px;
-  background: #edf2fb;
-  font-size: 0.9rem;
+  gap: 0.3rem;
 }
 
-.appointment-info {
-  max-width: 80%;
+.list-item-main {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
-.appointment-actions button {
+.color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.list-item-actions button {
   background: #c53a3a;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
 }
 
-.appointment-actions button:hover {
+.list-item-actions button:hover {
   background: #9c2f2f;
 }
 
-.ai-response {
-  margin-top: 0.8rem;
-  padding: 0.7rem;
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.toolbar label {
+  font-size: 0.8rem;
+}
+
+.calendar-view {
+  border-radius: 8px;
+  border: 1px solid #d3d9e8;
+  padding: 0.4rem;
+  background: #f9fafe;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.calendar-row {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 0.2rem;
+  align-items: center;
+  margin-bottom: 0.1rem;
+}
+
+.calendar-time {
+  font-size: 0.75rem;
+  color: #6b7b93;
+  text-align: right;
+  padding-right: 0.3rem;
+}
+
+.calendar-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+}
+
+.calendar-slot {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 4px;
+  background: #e1e7f5;
+}
+
+.calendar-slot-appointment {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.slot-list {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.slot-item {
+  padding: 0.35rem 0.4rem;
   border-radius: 6px;
   background: #edf2fb;
-  min-height: 3rem;
-  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slot-item button {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.ai-answer {
+  margin-top: 0.4rem;
+  padding: 0.4rem;
+  background: #edf2fb;
+  border-radius: 6px;
+  min-height: 2.5rem;
+  font-size: 0.85rem;
   white-space: pre-wrap;
 }
 
 .footer {
   text-align: center;
-  padding: 0.8rem;
-  font-size: 0.8rem;
+  padding: 0.6rem;
+  font-size: 0.75rem;
   color: #6b7b93;
 }
-  
-@media (max-width: 768px) {
-  .main {
-    padding: 0.5rem;
+
+/* Responsive */
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
   }
 }
