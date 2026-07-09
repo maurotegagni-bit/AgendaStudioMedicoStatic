@@ -3,65 +3,190 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agenda Studio Medico</title>
+  <title>Agenda Studio Medico - Demo Statica</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="header">
     <h1>Agenda Studio Medico</h1>
-    <p>Gestione appuntamenti e assistente AI per lo studio associato</p>
+    <p>Demo statica ispirata all’architettura originale (medici, prestazioni, slot liberi, storico)</p>
   </header>
 
-  <main class="main">
-    <section class="panel" id="agenda-panel">
-      <h2>Agenda giornaliera</h2>
+  <main class="layout">
+    <!-- Colonna sinistra: configurazione -->
+    <section class="sidebar">
+      <div class="panel">
+        <h2>Medici</h2>
+        <form id="doctor-form" class="form">
+          <input type="hidden" id="doctor-id">
 
-      <div class="agenda-controls">
-        <label>
-          Data:
-          <input type="date" id="date-input">
-        </label>
+          <label>
+            Nome
+            <input type="text" id="doctor-first-name" required>
+          </label>
 
-        <label>
-          Ora:
-          <input type="time" id="time-input">
-        </label>
+          <label>
+            Cognome
+            <input type="text" id="doctor-last-name" required>
+          </label>
 
-        <label>
-          Paziente:
-          <input type="text" id="patient-input" placeholder="Nome paziente">
-        </label>
+          <label>
+            Codice Fiscale / P.IVA
+            <input type="text" id="doctor-tax-id">
+          </label>
 
-        <label>
-          Note:
-          <input type="text" id="note-input" placeholder="Motivo visita / note">
-        </label>
+          <label>
+            Telefono
+            <input type="text" id="doctor-phone">
+          </label>
 
-        <button id="add-appointment">Aggiungi appuntamento</button>
+          <label>
+            Email
+            <input type="email" id="doctor-email">
+          </label>
+
+          <label>
+            Colore (esadecimale)
+            <input type="color" id="doctor-color" value="#4f8ddc">
+          </label>
+
+          <button type="submit">Salva medico</button>
+          <button type="button" id="doctor-reset">Nuovo</button>
+        </form>
+
+        <ul id="doctor-list" class="list"></ul>
       </div>
 
-      <h3>Appuntamenti</h3>
-      <ul id="appointments-list" class="appointments-list"></ul>
+      <div class="panel">
+        <h2>Prestazioni</h2>
+        <form id="treatment-form" class="form">
+          <input type="hidden" id="treatment-id">
+
+          <label>
+            Nome prestazione
+            <input type="text" id="treatment-name" required>
+          </label>
+
+          <label>
+            Durata (minuti)
+            <input type="number" id="treatment-duration" min="5" step="5" required>
+          </label>
+
+          <label>
+            Medico
+            <select id="treatment-doctor-id" required></select>
+          </label>
+
+          <button type="submit">Salva prestazione</button>
+          <button type="button" id="treatment-reset">Nuova</button>
+        </form>
+
+        <ul id="treatment-list" class="list"></ul>
+      </div>
     </section>
 
-    <section class="panel" id="ai-panel">
-      <h2>Assistente AI</h2>
-      <p>
-        Descrivi la situazione clinica, l’agenda della giornata o un dubbio organizzativo
-        e ricevi un suggerimento sintetico.
-      </p>
+    <!-- Colonna centrale: calendario -->
+    <section class="main-panel">
+      <div class="panel">
+        <h2>Calendario</h2>
 
-      <textarea id="prompt" rows="6"
-        placeholder="Esempio: 'Ho 10 visite di controllo e 2 urgenze. Suggerisci come organizzare gli orari per ridurre i tempi di attesa.'"></textarea>
+        <div class="toolbar">
+          <div>
+            <label>
+              Vista
+              <select id="view-mode">
+                <option value="single">Medico singolo</option>
+                <option value="all">Tutti i medici</option>
+              </select>
+            </label>
 
-      <button id="ask-ai">Chiedi all'AI</button>
+            <label id="single-doctor-filter-wrapper">
+              Medico
+              <select id="single-doctor-filter"></select>
+            </label>
 
-      <div id="ai-response" class="ai-response"></div>
+            <label>
+              Giorno
+              <input type="date" id="calendar-date">
+            </label>
+          </div>
+
+          <div>
+            <button id="new-appointment">Nuova prenotazione</button>
+          </div>
+        </div>
+
+        <div id="calendar-view" class="calendar-view">
+          <!-- griglia oraria renderizzata via JS -->
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Storico prestazioni per paziente</h2>
+        <div class="toolbar">
+          <label>
+            Nome paziente
+            <input type="text" id="history-patient-name" placeholder="Cerca per nome completo o parziale">
+          </label>
+          <button id="history-search">Cerca</button>
+        </div>
+        <ul id="history-list" class="list"></ul>
+      </div>
+    </section>
+
+    <!-- Colonna destra: prenotazioni + AI -->
+    <section class="sidebar">
+      <div class="panel">
+        <h2>Nuova prenotazione</h2>
+        <form id="booking-form" class="form">
+          <label>
+            Paziente
+            <input type="text" id="booking-patient" required>
+          </label>
+
+          <label>
+            Prestazione
+            <select id="booking-treatment-id" required></select>
+          </label>
+
+          <label>
+            Medico
+            <select id="booking-doctor-id" required></select>
+          </label>
+
+          <label>
+            Data preferita
+            <input type="date" id="booking-date">
+          </label>
+
+          <label>
+            Fascia oraria (inizio)
+            <input type="time" id="booking-from-time" value="09:00">
+          </label>
+
+          <label>
+            Fascia oraria (fine)
+            <input type="time" id="booking-to-time" value="18:00">
+          </label>
+
+          <button type="button" id="suggest-slots">Suggerisci slot liberi</button>
+        </form>
+
+        <div id="suggested-slots" class="slot-list"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Assistente AI (stub)</h2>
+        <textarea id="ai-prompt" rows="6"
+          placeholder="Descrivi la situazione dell’agenda o un dubbio organizzativo..."></textarea>
+        <button id="ai-ask">Chiedi all’AI</button>
+        <div id="ai-answer" class="ai-answer"></div>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
-    <small>Agenda Studio Medico - versione statica demo</small>
+    <small>Demo statica – dati salvati solo nel browser tramite localStorage. Nessuna integrazione reale con Google Calendar.</small>
   </footer>
 
   <script src="main.js"></script>
